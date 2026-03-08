@@ -21,7 +21,6 @@ public class BigMonster extends Monster{
     // переопредилим метод:
     @Override
     public boolean taskMonster(int difficultGame){
-        System.out.println("Решите задачу:");
         if (difficultGame == 1){
             return taskMonster();
         }else {

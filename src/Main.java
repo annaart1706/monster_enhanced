@@ -26,13 +26,21 @@ public class Main {
         // для работы с большим количеством монстров воспользуемся массивом
         Monster[] arrMonster = new Monster[countMonster + 1];
         int count = 0;
-        Monster test;
+        Monster test = null;
         while (count <= countMonster) {
-            if (r.nextBoolean()) {
-                test = new Monster(sizeBoard);
-            } else {
-                test = new BigMonster(sizeBoard);
+            switch (r.nextInt(3))
+            {
+                case 0 -> {
+                    test = new Monster(sizeBoard);
+                }
+                case 1 -> {
+                    test = new BigMonster(sizeBoard);
+                }
+                case 2 -> {
+                    test = new SmallMonster(sizeBoard);
+                }
             }
+
             if (board[test.getY()][test.getX()].equals("  ")) {
                 board[test.getY()][test.getX()] = test.getImage();
                 arrMonster[count] = test;
@@ -63,23 +71,21 @@ public class Main {
                 while (true) {
                     board[person.getY() - 1][person.getX() - 1] = person.getImage();
                     outputBoard(board, person.getLive());
-                    System.out.println("Введите куда будет ходить персонаж(ход возможен только по вертикали и горизонтали на одну клетку;" +
-                            "\nКоординаты персонажа - (x: " + person.getX() + ", y: " + person.getY() + "))");
 //                    int x = sc.nextInt();
 //                    int y = sc.nextInt();
                     int x = person.getX(), y = person.getY();
                     String direction = sc.nextLine().toLowerCase();
                     switch (direction) {
-                        case "w" -> {
+                        case "w", "ц" -> {
                             y--;
                         }
-                        case "s" -> {
+                        case "s", "ы" -> {
                             y++;
                         }
-                        case "d" -> {
+                        case "d", "в" -> {
                             x++;
                         }
-                        case "a" -> {
+                        case "a", "ф" -> {
                             x--;
                         }
                     }
@@ -91,10 +97,8 @@ public class Main {
                             board[person.getY() - 1][person.getX() - 1] = "  ";
                             person.move(x, y);
                             step++;
-                            System.out.println("Ход корректный; Новые координаты: " + person.getX() + ", " + person.getY() +
-                                    "\nХод номер: " + step);
                         } else if (next.equals(castle)) {
-                            System.out.println("Вы прошли игру!");
+                            System.out.println("Вы прошли игру! \uD83D\uDCAA");
                             break;
                         } else {
                             for (Monster monster : arrMonster) {
@@ -105,6 +109,10 @@ public class Main {
 
                                     } else {
                                         person.downLive();
+                                        if (person.getLive() == 0){
+                                            System.out.println("Game over \uD83D\uDC80");
+                                            return;
+                                        }
                                     }
                                     break;
                                 }

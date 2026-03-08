@@ -32,9 +32,8 @@ public class Monster {
     }
 
     public boolean taskMonster(int difficultGame){
-        System.out.println("Решите задачу:");
-        int x = r.nextInt(100);
-        int y = r.nextInt(100);
+        int x = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);
+        int y = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);
         int trueAnswer = x + y;
         System.out.println("Реши пример: " + x + " + " + y + " = ?");
         Scanner sc = new Scanner(System.in);
