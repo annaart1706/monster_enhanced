@@ -8,19 +8,11 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-        String castle = "\uD83C\uDFF0";
         int sizeBoard = 6;
 
+        Board board = new Board(sizeBoard);
+
         Person person = new Person(sizeBoard);
-
-        String[][] board = new String[sizeBoard][sizeBoard];
-        for (int y = 0; y < sizeBoard; y++) {
-            for (int x = 0; x < sizeBoard; x++) {
-                board[y][x] = "  ";
-            }
-        }
-
 
         int countMonster = sizeBoard * sizeBoard - sizeBoard - 5;
         Random r = new Random();
@@ -45,23 +37,20 @@ public class Main {
                 }
             }
 
-            if (board[test.getY()][test.getX()].equals("  ")) {
-                board[test.getY()][test.getX()] = test.getImage();
-                arrMonster[count] = test;
-                count++;
+            if (board.setMonster(test)) {
+                arrMonster[count++] = test;
             }
 
         }
 
         int castleX = r.nextInt(sizeBoard);
         int castleY = 0;
-
-
-        board[castleY][castleX] = castle;
+        board.setCastle(castleX, castleY);
+//        board[castleY][castleX] = castle;
 
 //        System.out.println("Привет! Ты готов начать играть в игру? (Напиши: ДА(+) или НЕТ(-))");
 
-        Scanner sc = new Scanner(System.in);
+
 //        String answer = sc.nextLine().toUpperCase();
         String answer = "+";
 //                System.out.println("Ваш ответ:\t" + answer);
@@ -73,8 +62,11 @@ public class Main {
                 int difficultGame = sc.nextInt();
                 System.out.println("Выбранная сложность:\t" + difficultGame);
                 while (true) {
-                    board[person.getY() - 1][person.getX() - 1] = person.getImage();
-                    outputBoard(sizeBoard, board, person.getLive());
+                    board.setPerson(person);
+                    board.outputBoard(person.getLive());
+//                    board[person.getY() - 1][person.getX() - 1] = person.getImage();
+//                    outputBoard(sizeBoard, board, person.getLive());
+
 //                    int x = sc.nextInt();
 //                    int y = sc.nextInt();
                     int x = person.getX(), y = person.getY();
@@ -97,18 +89,20 @@ public class Main {
 
                     // проверка
                     if (person.moveCorrect(x, y)) {
-                        String next = board[y - 1][x - 1];
-                        if (next.equals("  ")) {
-                            board[person.getY() - 1][person.getX() - 1] = "  ";
+                        String next = board.getValue(x, y);
+                        if (board.isEmpty(x, y)) {
+                            board.setValue(person.getX(), person.getY(), "  ");
+//                            board[person.getY() - 1][person.getX() - 1] = "  ";
                             person.move(x, y);
-                        } else if (next.equals(castle)) {
+                        } else if (board.isCastle(x, y)) {
                             System.out.println("Вы прошли игру! \uD83D\uDE80 \uD83D\uDCAA");
                             break;
                         } else {
                             for (Monster monster : arrMonster) {
                                 if (monster.conflictPerson(x, y)) {
                                     if (monster.taskMonster(difficultGame)) {
-                                        board[person.getY() - 1][person.getX() - 1] = "  ";
+                                        board.setValue(person.getX(), person.getY(), "  ");
+//                                        board[person.getY() - 1][person.getX() - 1] = "  ";
                                         person.move(x, y);
 
                                     } else {
@@ -133,24 +127,7 @@ public class Main {
 
     }
 
-    static void outputBoard(int size, String[][] board, int live) {
-        String leftBlock = "| ";
-        String rightBlock = "|";
-        StringBuilder wall = new StringBuilder("+");
-        wall.append(" —— +".repeat(Math.max(0, size)));
 
-        for (String[] raw : board) {
-            System.out.println(wall);
-            for (String col : raw) {
-                System.out.print(leftBlock + col + " ");
-            }
-            System.out.println(rightBlock);
-        }
-        System.out.println(wall);
-
-
-        System.out.println("Количество жизней:\t" + live + "\n");
-    }
 
     public static void clearConsole() {
         try {

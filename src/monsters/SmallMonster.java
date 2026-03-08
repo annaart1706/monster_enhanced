@@ -2,7 +2,7 @@ package monsters;
 
 import java.util.Scanner;
 
-public class SmallMonster extends Monster{
+public class SmallMonster extends Monster {
 
     private String image = "\uD83D\uDE08";
 
@@ -10,19 +10,18 @@ public class SmallMonster extends Monster{
         super(sizeBoard);
     }
 
-    //    @Override
+    @Override
     public String getImage() {
         return image;
     }
 
-    //    @Override
+    @Override
     public void setImage(String image) {
         this.image = image;
     }
 
-    // переопредилим метод:
     @Override
-    public boolean taskMonster(int difficultGame){
+    public boolean taskMonster(int difficultGame) {
         int x = r.nextInt(10);
         int y = r.nextInt(10);
         int trueAnswer = x * y;

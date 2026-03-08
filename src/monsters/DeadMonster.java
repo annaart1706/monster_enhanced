@@ -9,17 +9,16 @@ public class DeadMonster extends Monster {
         super(sizeBoard);
     }
 
-    //    @Override
+    @Override
     public String getImage() {
         return image;
     }
 
-    //    @Override
+    @Override
     public void setImage(String image) {
         this.image = image;
     }
 
-    // переопредилим метод:
     @Override
     public boolean taskMonster(int difficultGame) {
         if (active) {
