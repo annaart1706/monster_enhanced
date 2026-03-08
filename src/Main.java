@@ -1,4 +1,5 @@
 import monsterrs.BigMonster;
+import monsterrs.DeadMonster;
 import monsterrs.Monster;
 import monsterrs.SmallMonster;
 
@@ -32,8 +33,7 @@ public class Main {
         int count = 0;
         Monster test = null;
         while (count <= countMonster) {
-            switch (r.nextInt(3))
-            {
+            switch (r.nextInt(4)) {
                 case 0 -> {
                     test = new Monster(sizeBoard);
                 }
@@ -42,6 +42,9 @@ public class Main {
                 }
                 case 2 -> {
                     test = new SmallMonster(sizeBoard);
+                }
+                case 3 -> {
+                    test = new DeadMonster(sizeBoard);
                 }
             }
 
@@ -103,7 +106,7 @@ public class Main {
                             person.move(x, y);
                             step++;
                         } else if (next.equals(castle)) {
-                            System.out.println("Вы прошли игру! \uD83D\uDCAA");
+                            System.out.println("Вы прошли игру! \uD83D\uDE80 \uD83D\uDCAA");
                             break;
                         } else {
                             for (Monster monster : arrMonster) {
@@ -114,7 +117,7 @@ public class Main {
 
                                     } else {
                                         person.downLive();
-                                        if (person.getLive() == 0){
+                                        if (person.getLive() == 0) {
                                             System.out.println("Game over \uD83D\uDC80");
                                             return;
                                         }
@@ -124,7 +127,7 @@ public class Main {
                             }
                         }
                     } else {
-                        System.out.println("Некорректный ход");
+                        System.out.println("Некорректный ход \uD83D\uDC40");
                     }
                 }
             }

@@ -8,7 +8,7 @@ public class Monster {
     private final int x, y;
     Random r = new Random();
 
-    Monster(int sizeBoard){
+    public Monster(int sizeBoard){
         this.y = r.nextInt(sizeBoard - 1);
         this.x = r.nextInt(sizeBoard);
     }

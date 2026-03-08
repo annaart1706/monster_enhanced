@@ -6,7 +6,7 @@ public class BigMonster extends Monster{
 
     private String image = "\uD83D\uDC79";
 
-    BigMonster(int sizeBoard) {
+    public BigMonster(int sizeBoard) {
         super(sizeBoard);
     }
 
