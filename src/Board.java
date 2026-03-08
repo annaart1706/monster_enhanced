@@ -53,21 +53,21 @@ public class Board {
 
 
     void outputBoard(int live) {
-        String leftBlock = "| ";
+        String leftBlock = "  ";
         String rightBlock = "|";
-        StringBuilder wall = new StringBuilder("+");
-        wall.append(" —— +".repeat(board.length));
-
+        String wall = "+" + " —— +".repeat(board.length);
+        System.out.println(wall);
         for (String[] raw : board) {
-            System.out.println(wall);
-            for (String col : raw) {
-                System.out.print(leftBlock + col + " ");
+            StringBuilder rawVisual = new StringBuilder("|");
+            for (String cell : raw) {
+                rawVisual.append(leftBlock).append(cell).append(" ");
             }
-            System.out.println(rightBlock);
+            rawVisual.append(rightBlock);
+            System.out.println(rawVisual);
         }
         System.out.println(wall);
 
 
-        System.out.println("Количество жизней:\t" + live + "\n");
+        System.out.println("Количество жизней:\t" + live);
     }
 }
