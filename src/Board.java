@@ -40,6 +40,7 @@ public class Board {
     public void movePerson(Person person, int x, int y) {
         this.setValue(person.getX(), person.getY(), empty);
         person.move(x, y);
+        this.setPerson(person);
     }
 
     public boolean isEmpty(int x, int y) {

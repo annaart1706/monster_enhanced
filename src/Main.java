@@ -14,10 +14,9 @@ public class Main {
         System.out.println("Выбранная сложность:\t" + difficultGame);
 
         int sizeBoard = difficultGame + 6;
-
         Board board = new Board(sizeBoard);
-
         Person person = new Person(sizeBoard);
+        board.setPerson(person);
 
         int countMonster = sizeBoard * sizeBoard - sizeBoard - 5;
         Random r = new Random();
@@ -45,7 +44,6 @@ public class Main {
 
 
         while (true) {
-            board.setPerson(person);
             board.outputBoard(person.getLive());
 
             int x = person.getX(), y = person.getY();
