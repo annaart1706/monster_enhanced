@@ -10,12 +10,9 @@ public class Main {
     public static void main(String[] args) {
 
         String castle = "\uD83C\uDFF0";
-        int sizeBoard = 5;
+        int sizeBoard = 6;
 
         Person person = new Person(sizeBoard);
-
-
-        int step = 0;
 
         String[][] board = new String[sizeBoard][sizeBoard];
         for (int y = 0; y < sizeBoard; y++) {
@@ -77,7 +74,7 @@ public class Main {
                 System.out.println("Выбранная сложность:\t" + difficultGame);
                 while (true) {
                     board[person.getY() - 1][person.getX() - 1] = person.getImage();
-                    outputBoard(board, person.getLive());
+                    outputBoard(sizeBoard, board, person.getLive());
 //                    int x = sc.nextInt();
 //                    int y = sc.nextInt();
                     int x = person.getX(), y = person.getY();
@@ -104,7 +101,6 @@ public class Main {
                         if (next.equals("  ")) {
                             board[person.getY() - 1][person.getX() - 1] = "  ";
                             person.move(x, y);
-                            step++;
                         } else if (next.equals(castle)) {
                             System.out.println("Вы прошли игру! \uD83D\uDE80 \uD83D\uDCAA");
                             break;
@@ -137,10 +133,11 @@ public class Main {
 
     }
 
-    static void outputBoard(String[][] board, int live) {
+    static void outputBoard(int size, String[][] board, int live) {
         String leftBlock = "| ";
         String rightBlock = "|";
-        String wall = "+ —— + —— + —— + —— + —— +";
+        StringBuilder wall = new StringBuilder("+");
+        wall.append(" —— +".repeat(Math.max(0, size)));
 
         for (String[] raw : board) {
             System.out.println(wall);
