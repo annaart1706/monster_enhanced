@@ -1,3 +1,5 @@
+package monsterrs;
+
 import java.util.Scanner;
 
 public class BigMonster extends Monster{

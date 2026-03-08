@@ -1,3 +1,7 @@
+import monsterrs.BigMonster;
+import monsterrs.Monster;
+import monsterrs.SmallMonster;
+
 import java.util.Random;
 import java.util.Scanner;
 
@@ -89,6 +93,7 @@ public class Main {
                             x--;
                         }
                     }
+                    clearConsole();
 
                     // проверка
                     if (person.moveCorrect(x, y)) {
@@ -146,4 +151,19 @@ public class Main {
 
         System.out.println("Количество жизней:\t" + live + "\n");
     }
+
+    public static void clearConsole() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                // Executes the Windows 'cls' command via the command interpreter
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                // Executes the Unix 'clear' command
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

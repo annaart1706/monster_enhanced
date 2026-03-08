@@ -1,4 +1,4 @@
-import java.util.Scanner;
+package monsterrs;
 
 import java.util.Scanner;
 
@@ -6,7 +6,7 @@ public class SmallMonster extends Monster{
 
     private String image = "\uD83D\uDE08";
 
-    SmallMonster(int sizeBoard) {
+    public SmallMonster(int sizeBoard) {
         super(sizeBoard);
     }
 
