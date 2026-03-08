@@ -1,15 +1,15 @@
-package monsters;
+package cells;
 
 import java.util.Scanner;
 
 public class SmallMonster extends Monster {
-    public SmallMonster(int sizeBoard) {
-        super(sizeBoard);
+    public SmallMonster() {
+        super();
         image = "\uD83D\uDE08";
     }
 
     @Override
-    public boolean taskMonster(int difficultGame) {
+    public boolean task(int difficultGame) {
         int x = r.nextInt(10);
         int y = r.nextInt(10);
         int trueAnswer = x * y;

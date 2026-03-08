@@ -1,17 +1,17 @@
-package monsters;
+package cells;
 
 import java.util.Scanner;
 
 public class BigMonster extends Monster {
-    public BigMonster(int sizeBoard) {
-        super(sizeBoard);
+    public BigMonster() {
+        super();
         image = "\uD83D\uDC79";
     }
 
     @Override
-    public boolean taskMonster(int difficultGame) {
+    public boolean task(int difficultGame) {
         if (difficultGame == 1) {
-            return taskMonster(0);
+            return task(0);
         } else {
             int x = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);
             int y = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);

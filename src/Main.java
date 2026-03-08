@@ -1,46 +1,17 @@
-import monsters.BigMonster;
-import monsters.DeadMonster;
-import monsters.Monster;
-import monsters.SmallMonster;
+import cells.*;
 
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Выбери сложность игры(от 1 до 5):");
-        int difficultGame = sc.nextInt();
+        int difficultGame = 1;//sc.nextInt();
         System.out.println("Выбранная сложность:\t" + difficultGame);
 
-        int sizeBoard = difficultGame + 6;
+        int sizeBoard = difficultGame + 5;
         Board board = new Board(sizeBoard);
-        Person person = new Person(sizeBoard);
-        board.setPerson(person);
-
-        int countMonster = sizeBoard * sizeBoard - sizeBoard - 5;
-        Random r = new Random();
-
-        Monster[] arrMonster = new Monster[countMonster + 1];
-        int count = 0;
-        Monster test = null;
-        while (count <= countMonster) {
-            switch (r.nextInt(4)) {
-                case 0 -> test = new Monster(sizeBoard);
-                case 1 -> test = new BigMonster(sizeBoard);
-                case 2 -> test = new SmallMonster(sizeBoard);
-                case 3 -> test = new DeadMonster(sizeBoard);
-            }
-
-            if (board.setMonster(test)) {
-                arrMonster[count++] = test;
-            }
-
-        }
-
-        int castleX = r.nextInt(sizeBoard);
-        int castleY = 0;
-        board.setCastle(castleX, castleY);
+        Person person = board.person;
 
 
         while (true) {
@@ -54,28 +25,24 @@ public class Main {
                 case "d", "в" -> x++;
                 case "a", "ф" -> x--;
             }
-//            clearConsole();
+
+            Cell next = board.getCell(x, y);
 
             // проверка
-            if (person.moveCorrect(x, y)) {
-                if (board.isEmpty(x, y)) {
+            if (next != null) {
+                if (next.isEmpty()) {
                     board.movePerson(person, x, y);
-                } else if (board.isCastle(x, y)) {
+                } else if (next instanceof Castle) {
                     System.out.println("Вы прошли игру! \uD83D\uDE80 \uD83D\uDCAA");
                     break;
-                } else {
-                    for (Monster monster : arrMonster) {
-                        if (monster.conflictPerson(x, y)) {
-                            if (monster.taskMonster(difficultGame)) {
-                                board.movePerson(person, x, y);
-                            } else {
-                                person.downLive();
-                                if (person.getLive() == 0) {
-                                    System.out.println("Game over \uD83D\uDC80");
-                                    return;
-                                }
-                            }
-                            break;
+                } else if (next instanceof Monster monster) {
+                    if (monster.task(difficultGame)) {
+                        board.movePerson(person, x, y);
+                    } else {
+                        person.downLive();
+                        if (person.getLive() == 0) {
+                            System.out.println("Game over \uD83D\uDC80");
+                            return;
                         }
                     }
                 }

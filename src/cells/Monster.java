@@ -1,35 +1,22 @@
-package monsters;
+package cells;
 
 import java.util.Random;
 import java.util.Scanner;
 
-public class Monster {
-    protected String image = "\uD83E\uDDDF\u200D";
-    protected final int x, y;
+public class Monster extends Cell {
     protected final Random r = new Random();
 
-    public Monster(int sizeBoard){
-        this.y = r.nextInt(sizeBoard - 1);
-        this.x = r.nextInt(sizeBoard);
+    public Monster() {
+        super();
+        image = "\uD83E\uDDDF\u200D";
     }
 
-    public String getImage() {
-        return image;
+    public boolean isEmpty() {
+        return false;
     }
 
-    public int getY() {
-        return y;
-    }
 
-    public int getX() {
-        return x;
-    }
-
-    public boolean conflictPerson(int perX, int perY){
-        return perY - 1 == this.y && perX - 1 == this.x;
-    }
-
-    public boolean taskMonster(int difficultGame){
+    public boolean task(int difficultGame) {
         int x = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);
         int y = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);
         int trueAnswer = x + y;
