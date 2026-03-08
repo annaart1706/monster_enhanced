@@ -4,6 +4,8 @@ import java.util.Objects;
 
 public class Board {
     private final String castle = "\uD83C\uDFF0";
+    private final String empty = "  ";
+
     String[][] board;
 
     public Board(int size) {
@@ -31,12 +33,13 @@ public class Board {
         board[person.getY() - 1][person.getX() - 1] = person.getImage();
     }
 
-    public String getValue(int x, int y) {
-        return board[y - 1][x - 1];
-    }
-
     public void setValue(int x, int y, String value) {
         board[y - 1][x - 1] = value;
+    }
+
+    public void movePerson(Person person, int x, int y) {
+        this.setValue(person.getX(), person.getY(), empty);
+        person.move(x, y);
     }
 
     public boolean isEmpty(int x, int y) {

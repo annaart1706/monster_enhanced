@@ -3,28 +3,15 @@ package monsters;
 import java.util.Scanner;
 
 public class BigMonster extends Monster {
-
-    private String image = "\uD83D\uDC79";
-
     public BigMonster(int sizeBoard) {
         super(sizeBoard);
-    }
-
-
-    @Override
-    public String getImage() {
-        return image;
-    }
-
-    @Override
-    public void setImage(String image) {
-        this.image = image;
+        image = "\uD83D\uDC79";
     }
 
     @Override
     public boolean taskMonster(int difficultGame) {
         if (difficultGame == 1) {
-            return taskMonster();
+            return taskMonster(0);
         } else {
             int x = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);
             int y = r.nextInt(10 * (difficultGame - 1), 10 * difficultGame);
@@ -43,7 +30,4 @@ public class BigMonster extends Monster {
 
     }
 
-    public boolean taskMonster() {
-        return super.taskMonster(0);
-    }
 }

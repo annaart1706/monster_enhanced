@@ -13,7 +13,7 @@ public class Main {
         int difficultGame = sc.nextInt();
         System.out.println("Выбранная сложность:\t" + difficultGame);
 
-        int sizeBoard = difficultGame + 5;
+        int sizeBoard = difficultGame + 6;
 
         Board board = new Board(sizeBoard);
 
@@ -27,18 +27,10 @@ public class Main {
         Monster test = null;
         while (count <= countMonster) {
             switch (r.nextInt(4)) {
-                case 0 -> {
-                    test = new Monster(sizeBoard);
-                }
-                case 1 -> {
-                    test = new BigMonster(sizeBoard);
-                }
-                case 2 -> {
-                    test = new SmallMonster(sizeBoard);
-                }
-                case 3 -> {
-                    test = new DeadMonster(sizeBoard);
-                }
+                case 0 -> test = new Monster(sizeBoard);
+                case 1 -> test = new BigMonster(sizeBoard);
+                case 2 -> test = new SmallMonster(sizeBoard);
+                case 3 -> test = new DeadMonster(sizeBoard);
             }
 
             if (board.setMonster(test)) {
@@ -59,27 +51,17 @@ public class Main {
             int x = person.getX(), y = person.getY();
             String direction = sc.nextLine().toLowerCase();
             switch (direction) {
-                case "w", "ц" -> {
-                    y--;
-                }
-                case "s", "ы" -> {
-                    y++;
-                }
-                case "d", "в" -> {
-                    x++;
-                }
-                case "a", "ф" -> {
-                    x--;
-                }
+                case "w", "ц" -> y--;
+                case "s", "ы" -> y++;
+                case "d", "в" -> x++;
+                case "a", "ф" -> x--;
             }
-            clearConsole();
+//            clearConsole();
 
             // проверка
             if (person.moveCorrect(x, y)) {
-                String next = board.getValue(x, y);
                 if (board.isEmpty(x, y)) {
-                    board.setValue(person.getX(), person.getY(), "  ");
-                    person.move(x, y);
+                    board.movePerson(person, x, y);
                 } else if (board.isCastle(x, y)) {
                     System.out.println("Вы прошли игру! \uD83D\uDE80 \uD83D\uDCAA");
                     break;
@@ -87,9 +69,7 @@ public class Main {
                     for (Monster monster : arrMonster) {
                         if (monster.conflictPerson(x, y)) {
                             if (monster.taskMonster(difficultGame)) {
-                                board.setValue(person.getX(), person.getY(), "  ");
-                                person.move(x, y);
-
+                                board.movePerson(person, x, y);
                             } else {
                                 person.downLive();
                                 if (person.getLive() == 0) {
@@ -106,21 +86,4 @@ public class Main {
             }
         }
     }
-
-
-
-    public static void clearConsole() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                // Executes the Windows 'cls' command via the command interpreter
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                // Executes the Unix 'clear' command
-                new ProcessBuilder("clear").inheritIO().start().waitFor();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 }
