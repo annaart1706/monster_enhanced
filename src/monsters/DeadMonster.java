@@ -1,4 +1,4 @@
-package monsterrs;
+package monsters;
 
 public class DeadMonster extends Monster {
     private boolean active = true;

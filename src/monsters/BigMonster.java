@@ -1,4 +1,4 @@
-package monsterrs;
+package monsters;
 
 import java.util.Scanner;
 

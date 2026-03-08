@@ -1,7 +1,7 @@
-import monsterrs.BigMonster;
-import monsterrs.DeadMonster;
-import monsterrs.Monster;
-import monsterrs.SmallMonster;
+import monsters.BigMonster;
+import monsters.DeadMonster;
+import monsters.Monster;
+import monsters.SmallMonster;
 
 import java.util.Random;
 import java.util.Scanner;
