@@ -19,7 +19,7 @@ public class Person extends Cell {
         return y;
     }
 
-    public int getLive() {
+    public int isAlive() {
         return live;
     }
 

@@ -42,7 +42,6 @@ public class Board {
     }
 
     public Cell getCell(int x, int y) {
-        System.out.println(x + " " + y);
         if (x >= 0 && x < this.board.length && y >= 0 && y < this.board.length) {
             return board[y][x];
         }

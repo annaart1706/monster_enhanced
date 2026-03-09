@@ -10,12 +10,16 @@ public class DeadMonster extends Monster {
 
     @Override
     public boolean task(int difficultGame) {
-        if (active) {
-            System.out.println("Ты проиграл эту битву!");
-
-        }
+//        if (active) {
+//            System.out.println("Ты проиграл эту битву!");
+//
+//        }
         active = !active;
-        return active;
+        return true;
+    }
+
+    public void damage(Person person) {
+        person.downLive();
     }
 
 }

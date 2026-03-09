@@ -6,7 +6,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Выбери сложность игры(от 1 до 5):");
-        int difficultGame = 1;//sc.nextInt();
+        int difficultGame = sc.nextInt();
         System.out.println("Выбранная сложность:\t" + difficultGame);
 
         int sizeBoard = difficultGame + 5;
@@ -15,7 +15,7 @@ public class Main {
 
 
         while (true) {
-            board.outputBoard(person.getLive());
+            board.outputBoard(person.isAlive());
 
             int x = person.getX(), y = person.getY();
             String direction = sc.nextLine().toLowerCase();
@@ -30,17 +30,21 @@ public class Main {
 
             // проверка
             if (next != null) {
+                next.damage(person);
                 if (next.isEmpty()) {
                     board.movePerson(person, x, y);
                 } else if (next instanceof Castle) {
-                    System.out.println("Вы прошли игру! \uD83D\uDE80 \uD83D\uDCAA");
+                    board.movePerson(person, x, y);
+                    board.outputBoard(person.isAlive());
+                    System.out.println("Вы прошли игру! 💪");
+                    System.out.println("🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀🚀");
                     break;
                 } else if (next instanceof Monster monster) {
                     if (monster.task(difficultGame)) {
                         board.movePerson(person, x, y);
                     } else {
                         person.downLive();
-                        if (person.getLive() == 0) {
+                        if (person.isAlive() == 0) {
                             System.out.println("Game over \uD83D\uDC80");
                             return;
                         }

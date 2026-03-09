@@ -5,4 +5,8 @@ public class Castle extends Cell {
         super();
         image = "\uD83C\uDFF0";
     }
+
+    public boolean isEmpty() {
+        return false;
+    }
 }
